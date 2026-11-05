@@ -1,4 +1,5 @@
 <?php
+/**
  * Copy this file to config/database.php and fill in your own values.
  * (config/database.php is git-ignored so passwords never get committed.)
  *
