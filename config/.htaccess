@@ -1,0 +1,2 @@
+# Never serve configuration files over HTTP (Apache 2.4+)
+Require all denied

@@ -1,0 +1,2 @@
+# Keep setup files private (Apache 2.4+)
+Require all denied

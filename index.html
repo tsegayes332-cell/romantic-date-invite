@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffe3ee">
+<title>A little question for you 💗</title>
+<!-- Fonts are optional: the page falls back gracefully to system fonts if they cannot load -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <!-- Decorative layers -->
+  <div class="bg-layer" id="bgLayer" aria-hidden="true"></div>
+  <div class="riser-layer" id="riserLayer" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <main class="app">
+    <!-- Progress dots -->
+    <div class="dots" id="dots" role="img" aria-label="Progress"></div>
+
+    <!-- ================= STEP 1: INVITATION ================= -->
+    <section class="step card active" id="step1" aria-labelledby="h1">
+      <div class="big-emoji" aria-hidden="true">💌</div>
+      <p class="kicker">a little something for you</p>
+      <h1 class="title" id="h1" tabindex="-1">Hey you... 💗</h1>
+      <p class="lead">Will you go on a date with me?</p>
+
+      <div class="arena" id="arena">
+        <div class="btn-row">
+          <button class="btn btn-yes" id="yesBtn" type="button">YES! 💕</button>
+          <!-- invisible twin that reserves the NO button's starting spot -->
+          <span class="btn btn-no ghost" id="noSlot" aria-hidden="true">NO 🙃</span>
+        </div>
+        <button class="btn btn-no" id="noBtn" type="button">NO 🙃</button>
+      </div>
+      <p class="no-msg" id="noMsg" aria-live="polite"></p>
+    </section>
+
+    <!-- ================= STEP 2: YES CELEBRATION ================= -->
+    <section class="step card" id="step2" aria-labelledby="h2" hidden>
+      <div class="big-emoji" aria-hidden="true">🥰</div>
+      <h2 class="cheer-title" id="h2" tabindex="-1">YAAAAAY!! 🥹❤️</h2>
+      <p class="cheer-line">You just made me smile!</p>
+      <p class="cheer-line soft">I was secretly hoping you would say yes!</p>
+      <div class="actions">
+        <button class="btn btn-primary btn-xl btn-pulse" id="next2" type="button">NEXT 💕</button>
+      </div>
+    </section>
+
+    <!-- ================= STEP 3: DATE & TIME ================= -->
+    <section class="step card wide" id="step3" aria-labelledby="h3" hidden>
+      <p class="kicker">Step 1 of 4</p>
+      <h2 class="title sm" id="h3" tabindex="-1">When are you free? 📅</h2>
+      <p class="sub">Pick a day and a time that works for you.</p>
+
+      <div class="picker">
+        <div>
+          <p class="panel-title" id="calLabel">Choose a date 🌸</p>
+          <div class="cal-head">
+            <button class="cal-nav" id="calPrev" type="button" aria-label="Previous month">‹</button>
+            <div class="cal-title" id="calTitle" aria-live="polite"></div>
+            <button class="cal-nav" id="calNext" type="button" aria-label="Next month">›</button>
+          </div>
+          <div class="cal-grid" id="calGrid" role="group" aria-labelledby="calLabel"></div>
+        </div>
+        <div>
+          <p class="panel-title" id="timeLabel">Choose a time 🕰️</p>
+          <div class="time-grid" id="timeGrid" role="radiogroup" aria-labelledby="timeLabel"></div>
+        </div>
+      </div>
+
+      <p class="hint" id="hint3" aria-live="polite"></p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="back3" type="button">← BACK</button>
+        <button class="btn btn-primary" id="next3" type="button" disabled>NEXT 💕</button>
+      </div>
+    </section>
+
+    <!-- ================= STEP 4: FOOD ================= -->
+    <section class="step card wide" id="step4" aria-labelledby="h4" hidden>
+      <p class="kicker">Step 2 of 4</p>
+      <h2 class="title sm" id="h4" tabindex="-1">What are we eating? 🍓</h2>
+      <p class="sub">Choose one – I'm not picky, I just want to see you happy.</p>
+      <div class="options" id="foodGrid" role="radiogroup" aria-labelledby="h4"></div>
+      <p class="hint" id="hint4" aria-live="polite"></p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="back4" type="button">← BACK</button>
+        <button class="btn btn-primary" id="next4" type="button" disabled>NEXT 💕</button>
+      </div>
+    </section>
+
+    <!-- ================= STEP 5: ACTIVITY ================= -->
+    <section class="step card wide" id="step5" aria-labelledby="h5" hidden>
+      <p class="kicker">Step 3 of 4</p>
+      <h2 class="title sm" id="h5" tabindex="-1">Where should our little adventure take us? 🌷</h2>
+      <p class="sub">Pick the vibe for our day together.</p>
+      <div class="options" id="activityGrid" role="radiogroup" aria-labelledby="h5"></div>
+      <p class="hint" id="hint5" aria-live="polite"></p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="back5" type="button">← BACK</button>
+        <button class="btn btn-primary" id="next5" type="button" disabled>NEXT 💕</button>
+      </div>
+    </section>
+
+    <!-- ================= STEP 6: REVIEW ================= -->
+    <section class="step card" id="step6" aria-labelledby="h6" hidden>
+      <p class="kicker">Step 4 of 4</p>
+      <h2 class="title sm" id="h6" tabindex="-1">So... sounds like a plan? 💗</h2>
+      <ul class="summary" id="summary6"></ul>
+
+      <!-- Optional personal message (saved together with the plan) -->
+      <div class="note-field">
+        <label class="note-label" for="message6">Leave me a little note 💌 <span class="note-opt">(optional)</span></label>
+        <textarea id="message6" class="note-input" rows="3" maxlength="500" placeholder="Anything you'd like me to know? ❤️"></textarea>
+        <div class="note-count" id="count6" aria-hidden="true">0 / 500</div>
+      </div>
+
+      <p class="save-error" id="saveError" role="alert" hidden></p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="back6" type="button">← BACK</button>
+      </div>
+      <div class="actions" style="margin-top:14px">
+        <button class="btn btn-primary btn-xl btn-pulse" id="confirm6" type="button">SOUNDS LIKE A PLAN! ❤️</button>
+      </div>
+    </section>
+
+    <!-- ================= STEP 7: FINAL ================= -->
+    <section class="step card" id="step7" aria-labelledby="h7" hidden>
+      <div class="big-emoji" aria-hidden="true">💋</div>
+      <h2 class="final-title" id="h7" tabindex="-1">IT'S A DATE!! 💋❤️</h2>
+      <p class="saved-badge" id="savedBadge" role="status" hidden>💌 Your plan is saved. I've got it!</p>
+      <div class="final-msg">
+        <p>Well, well, look at us making plans! 😘</p>
+        <p>I can't wait to spend this time with you.</p>
+        <p>I'll be looking forward to this day, so don't keep me waiting!</p>
+        <p>Come with your best smile, because I'm already planning to steal a few of them. ❤️</p>
+      </div>
+      <ul class="summary" id="summary7"></ul>
+      <p class="until">Until then... try not to miss me too much. 😉💕</p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="restart" type="button">↺ Start over</button>
+      </div>
+    </section>
+  </main>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
